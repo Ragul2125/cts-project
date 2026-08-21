@@ -4,12 +4,22 @@ from app.core.database import get_db
 from app.models.care_models import CarePlan, CarePlanAction, SafetyProtocol, DailyGoal, CarePlanProvider
 from app.schemas.care_plan import CarePlanFullResponse, CarePlanResponse
 from uuid import UUID
+from app.models.patient_models import Patient
 
 router = APIRouter(prefix="/care-plans", tags=["care_plans"])
 
 @router.get("/patient/{patient_id}", response_model=list[CarePlanResponse])
-def get_patient_care_plans(patient_id: UUID, db: Session = Depends(get_db)):
-    plans = db.query(CarePlan).filter(CarePlan.patient_id == patient_id).order_by(CarePlan.created_at.desc()).all()
+def get_patient_care_plans(patient_id: str, db: Session = Depends(get_db)):
+    try:
+        uid = UUID(patient_id)
+        patient = db.query(Patient).filter(Patient.id == uid).first()
+    except ValueError:
+        patient = db.query(Patient).filter(Patient.patient_id == patient_id).first()
+        
+    if not patient:
+        return []
+
+    plans = db.query(CarePlan).filter(CarePlan.patient_id == patient.id).order_by(CarePlan.created_at.desc()).all()
     return plans
 
 @router.get("/{plan_id}", response_model=CarePlanFullResponse)
@@ -31,9 +41,34 @@ def get_care_plan_details(plan_id: UUID, db: Session = Depends(get_db)):
         "providers": providers
     }
 
-from app.schemas.care_plan import CarePlanCreate
-from app.models.patient_models import Patient
+@router.patch("/{plan_id}/complete")
+def complete_care_plan(plan_id: UUID, db: Session = Depends(get_db)):
+    plan = db.query(CarePlan).filter(CarePlan.id == plan_id).first()
+    if not plan:
+        raise HTTPException(status_code=404, detail="Care plan not found")
+    plan.status = "Completed"
+    plan.active = False
+    db.commit()
+    db.refresh(plan)
+    return {"message": "Care plan marked as completed", "plan_id": str(plan_id)}
+
+@router.delete("/{plan_id}")
+def delete_care_plan(plan_id: UUID, db: Session = Depends(get_db)):
+    plan = db.query(CarePlan).filter(CarePlan.id == plan_id).first()
+    if not plan:
+        raise HTTPException(status_code=404, detail="Care plan not found")
+        
+    db.query(CarePlanAction).filter(CarePlanAction.care_plan_id == plan.id).delete()
+    db.query(SafetyProtocol).filter(SafetyProtocol.care_plan_id == plan.id).delete()
+    db.query(DailyGoal).filter(DailyGoal.care_plan_id == plan.id).delete()
+    db.query(CarePlanProvider).filter(CarePlanProvider.care_plan_id == plan.id).delete()
+    
+    db.delete(plan)
+    db.commit()
+    return {"message": "Care plan deleted successfully", "plan_id": str(plan_id)}
+
 import datetime
+from app.schemas.care_plan import CarePlanCreate
 
 @router.post("/patient/{patient_id}", response_model=CarePlanResponse)
 def create_care_plan(patient_id: str, payload: CarePlanCreate, db: Session = Depends(get_db)):

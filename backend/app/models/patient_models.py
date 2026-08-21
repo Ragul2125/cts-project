@@ -20,6 +20,7 @@ class Patient(Base):
     phone = Column(String, nullable=True)
     email = Column(String, nullable=True)
     address = Column(Text, nullable=True)
+    profile_picture_url = Column(String, nullable=True)
     created_at = Column(DateTime, default=utcnow)
     updated_at = Column(DateTime, default=utcnow, onupdate=utcnow)
 

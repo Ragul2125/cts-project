@@ -8,6 +8,7 @@ from app.models.hos_cms_models import (
     HOSCareRequest, HOSCareAction, HOSRequestVolume, HOSEDTrend, HOSAvoidableDiagnosis
 )
 
+
 router = APIRouter()
 
 # --- Pydantic Schemas ---
@@ -195,9 +196,9 @@ def create_care_request(payload: CreateCareRequestSchema, db: Session = Depends(
         patient_id=patient.id,
         encounter_date=datetime.datetime.utcnow().date(),
         encounter_type=encounter_type,
-        facility_id=None,
-        attending_provider_id=None,
-        reason_for_visit=payload.summary or "New Care Request via Triage",
+        facility_name="Triage Recommended Facility",
+        provider_id=None,
+        notes=payload.summary or "New Care Request via Triage",
         primary_diagnosis=payload.conditions[0] if payload.conditions else None,
         is_emergency=is_emergency,
         status="Pending"

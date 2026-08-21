@@ -1,11 +1,13 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
+import os
+import shutil
 from uuid import UUID
 from app.core.database import get_db
 from app.models.patient_models import Patient, PatientCondition, PatientMedication, PatientAllergy, PatientDataRecord, PatientPreference, EmergencyContact
 from app.models.clinical_models import MedicalFile, FileAISummary
 from app.models.care_models import CarePlan, PatientActivityLog, Assessment, CareRecommendation
-from app.schemas.patient import PatientResponse, PatientDashboardResponse
+from app.schemas.patient import PatientResponse, PatientDashboardResponse, PatientUpdateRequest
 
 router = APIRouter(prefix="/patients", tags=["patients"])
 
@@ -20,6 +22,78 @@ def get_patient(patient_id: str, db: Session = Depends(get_db)):
     if not patient:
         raise HTTPException(status_code=404, detail="Patient not found")
     return patient
+
+@router.patch("/{patient_id}", response_model=PatientResponse)
+def update_patient_profile(patient_id: str, updates: PatientUpdateRequest, db: Session = Depends(get_db)):
+    patient = get_patient(patient_id, db)
+    
+    if updates.name is not None:
+        patient.name = updates.name
+    if updates.phone is not None:
+        patient.phone = updates.phone
+    if updates.email is not None:
+        patient.email = updates.email
+    if updates.address is not None:
+        patient.address = updates.address
+    if updates.blood_group is not None:
+        patient.blood_group = updates.blood_group
+
+    db.commit()
+    db.refresh(patient)
+    return patient
+
+@router.post("/{patient_id}/profile-picture", response_model=PatientResponse)
+def upload_profile_picture(patient_id: str, file: UploadFile = File(...), db: Session = Depends(get_db)):
+    patient = get_patient(patient_id, db)
+    
+    upload_dir = "uploads/profiles"
+    os.makedirs(upload_dir, exist_ok=True)
+    
+    file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
+    file_name = f"patient_{patient.id}.{file_extension}"
+    file_path = os.path.join(upload_dir, file_name)
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    patient.profile_picture_url = f"/{file_path.replace(os.sep, '/')}"
+    db.commit()
+    db.refresh(patient)
+    return patient
+
+@router.post("/{patient_id}/files")
+def upload_patient_file(
+    patient_id: str, 
+    file: UploadFile = File(...), 
+    name: str = Form("Uploaded Document"),
+    db: Session = Depends(get_db)
+):
+    patient = get_patient(patient_id, db)
+    
+    upload_dir = "uploads/medical_files"
+    os.makedirs(upload_dir, exist_ok=True)
+    
+    file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'pdf'
+    import uuid
+    file_id = uuid.uuid4()
+    file_name = f"doc_{file_id}.{file_extension}"
+    file_path = os.path.join(upload_dir, file_name)
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    new_file = MedicalFile(
+        id=file_id,
+        patient_id=patient.id,
+        name=name,
+        category="Patient Upload",
+        file_type=file_extension.upper(),
+        file_size=f"{round(os.path.getsize(file_path) / 1024 / 1024, 2)} MB",
+    )
+    db.add(new_file)
+    db.commit()
+    db.refresh(new_file)
+    return {"message": "File uploaded successfully", "file_id": str(file_id)}
 
 @router.get("/{patient_id}/dashboard", response_model=PatientDashboardResponse)
 def get_patient_dashboard(patient_id: str, db: Session = Depends(get_db)):
@@ -212,3 +286,4 @@ def get_patient_full_profile(patient_id: str, db: Session = Depends(get_db)):
             "communication_preference": preferences.communication_preference if preferences else "Email"
         }
     }
+ 

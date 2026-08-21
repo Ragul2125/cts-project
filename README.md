@@ -4,6 +4,15 @@ CarePath AI is a healthcare clinical navigation and triage platform built with a
 
 ---
 
+## ✨ Core Features
+
+- **Patient Dashboard**: Track health metrics, vitals, and longitudinal timelines.
+- **Medical File Management**: Upload and analyze clinical records with AI-extracted overviews.
+- **AI Symptom Assessment**: Interactive triage engine providing care navigation and safety protocols.
+- **Care Plans**: Dynamic daily goals, actionable timelines, and urgent help triggers.
+
+---
+
 ## 🛠 Tech Stack
 
 - **Frontend**: React 18, TypeScript, Vite, React Router v6, Lucide Icons, Recharts, PWA support.

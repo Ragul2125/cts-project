@@ -13,6 +13,14 @@ class PatientBase(BaseModel):
     phone: str | None = None
     email: str | None = None
     address: str | None = None
+    profile_picture_url: str | None = None
+
+class PatientUpdateRequest(BaseModel):
+    name: str | None = None
+    phone: str | None = None
+    email: str | None = None
+    address: str | None = None
+    blood_group: str | None = None
 
 class PatientResponse(PatientBase):
     id: UUID

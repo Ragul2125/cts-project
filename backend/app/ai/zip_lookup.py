@@ -18,18 +18,24 @@ change.
 """
 
 import math
+import os
 import pandas as pd
 
-_ZIP_FILE = "uszips.csv"
+# Always resolve relative to this file's directory (backend/app/ai/),
+# then walk up two levels to the backend/ folder where uszips.csv lives.
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_ZIP_FILE = os.path.join(_HERE, "..", "..", "uszips.csv")
 
 try:
     _zips_df = pd.read_csv(_ZIP_FILE, dtype={"zip": str})
     _zips_df["zip"] = _zips_df["zip"].str.zfill(5)
     _zips_df = _zips_df.set_index("zip")
     _LOADED = True
+    print(f"[zip_lookup] Loaded {len(_zips_df)} ZIP codes from {os.path.abspath(_ZIP_FILE)}")
 except FileNotFoundError:
     _zips_df = None
     _LOADED = False
+    print(f"[zip_lookup] WARNING: uszips.csv not found at {os.path.abspath(_ZIP_FILE)}")
 
 
 def _require_loaded():
@@ -48,7 +54,6 @@ def haversine_miles(lat1, lon1, lat2, lon2):
     dlambda = math.radians(lon2 - lon1)
     a = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2) ** 2
     return 2 * R * math.asin(math.sqrt(a))
-
 
 def distance_between_zips(zip_a, zip_b):
     _require_loaded()
