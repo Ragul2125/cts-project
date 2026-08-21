@@ -61,7 +61,8 @@ async def recommend_facility(req: FacilityRecommendationRequest):
         )
         
     try:
-        llm = ChatGroq(model="openai/gpt-oss-120b", api_key=os.getenv("GROQ_API_KEY", "dummy-key"), temperature=0)
+        api_key = os.getenv("GROQ_API_KEY", "dummy_key")
+        llm = ChatGroq(model="openai/gpt-oss-120b", api_key=api_key, temperature=0)
         
         class FacilitySelection(BaseModel):
             facility_name: str = Field(description="The exact name of the selected facility.")

@@ -23,7 +23,7 @@ match what's documented above.
 """
 
 import pandas as pd
-from zip_lookup import distance_between_zips, state_for_zip
+from app.ai.zip_lookup import distance_between_zips, state_for_zip
 
 # Map each care navigation recommendation to the specialty/facility type
 # we should search for in the facility directory. Extend this as your
@@ -136,7 +136,7 @@ def recommend_care_centers(patient_zip, care_recommendation,
 
 
 if __name__ == "__main__":
-    from facility_data_demo import FACILITY_DIRECTORY, QUALITY_SCORES, CAHPS_SCORES
+    from app.ai.facility_data_demo import FACILITY_DIRECTORY, QUALITY_SCORES, CAHPS_SCORES
 
     demo_cases = [
         ("10001", "PCP_Appointment"),

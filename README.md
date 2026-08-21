@@ -132,5 +132,3 @@ You can test user authentication via the **Sign In / Auth** button in the top he
 | `GET` | `/api/v1/assessments/{assessment_id}/recommendation` | Fetch generated AI care recommendation |
 | `GET` | `/api/v1/care-plans/patient/{patient_id}` | Retrieve patient's active care plans |
 | `GET` | `/api/v1/care-plans/{plan_id}` | Fetch detailed care plan actions & safety protocols |
-| `POST` | `/api/v1/triage/form` | Submit symptom form to the AI Triage Agent |
-| `POST` | `/api/v1/facility/recommend` | Dynamic AI facility recommendation via geographic proximity & quality match |
