@@ -1,0 +1,30 @@
+/* CarePath AI - Core Design Tokens and Base Styles */
+@import './styles/variables.css';
+@import './styles/globals.css';
+
+/* Print Styles for Care Plan Export */
+@media print {
+  .sidebar,
+  .app-header,
+  .bottom-nav,
+  .download-pdf-btn,
+  .care-plan-tabs,
+  .step-action-link,
+  .emergency-contact-action-btn {
+    display: none !important;
+  }
+
+  .main-wrapper,
+  .main-content,
+  .app-container {
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+}

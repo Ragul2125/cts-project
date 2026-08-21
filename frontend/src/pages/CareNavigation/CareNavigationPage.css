@@ -1,0 +1,379 @@
+.care-navigation-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.recommendation-banner-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-card);
+  gap: 20px;
+}
+
+.rec-left-group {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.rec-icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #eff6ff;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rec-text-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rec-kicker {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+.rec-main-title {
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  line-height: 1.2;
+}
+
+.rec-timeframe-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.rec-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.view-plan-btn {
+  padding: 10px 22px;
+}
+
+.return-dash-btn {
+  padding: 10px 20px;
+}
+
+/* Two Column Grid */
+.nav-results-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.why-rec-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--success);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-self: flex-start;
+}
+
+.why-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.why-sparkle-icon {
+  color: var(--success);
+}
+
+.why-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.why-rationale-text {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.rationale-subcards-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.rationale-subcard {
+  background: #f8fafc;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subcard-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subcard-icon.blue-icon {
+  color: var(--primary);
+}
+
+.subcard-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.subcard-bullet-list {
+  list-style: disc inside;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Suggested Providers Card */
+.suggested-providers-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-self: flex-start;
+}
+
+.providers-card-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.providers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.provider-row-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition-fast);
+}
+
+.provider-row-item:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.provider-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.provider-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.provider-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.provider-meta {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+.provider-availability-badge {
+  display: inline-flex;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #059669;
+  background: #ecfdf5;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+.provider-contact-label {
+  font-size: 0.6875rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.find-more-providers-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color var(--transition-fast);
+}
+
+.find-more-providers-btn:hover {
+  background-color: #eff6ff;
+}
+
+/* Safety Advisory Box */
+.safety-advisory-box {
+  background-color: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: var(--radius-lg);
+  padding: 18px 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.advisory-icon {
+  color: #dc2626;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.advisory-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.advisory-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #991b1b;
+}
+
+.advisory-text {
+  font-size: 0.8125rem;
+  color: #7f1d1d;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .recommendation-banner-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .rec-actions-group {
+    width: 100%;
+    flex-direction: column;
+  }
+  .view-plan-btn, .return-dash-btn {
+    width: 100%;
+  }
+  .nav-results-grid {
+    grid-template-columns: 1fr;
+  }
+  .rationale-subcards-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Emergency Alert Banner */
+.emergency-alert-banner {
+  background: linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%);
+  color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.4);
+  gap: 16px;
+  animation: pulse 2s infinite;
+}
+
+.emergency-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.emergency-banner-icon {
+  color: #fef08a;
+  flex-shrink: 0;
+}
+
+.emergency-banner-title {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.emergency-banner-sub {
+  font-size: 0.8125rem;
+  opacity: 0.9;
+}
+
+.call-911-btn {
+  background-color: #ffffff !important;
+  color: #dc2626 !important;
+  font-weight: 800 !important;
+  border: none !important;
+  padding: 10px 18px !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.call-911-btn:hover {
+  background-color: #fef2f2 !important;
+}

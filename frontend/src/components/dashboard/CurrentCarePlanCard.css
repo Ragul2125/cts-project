@@ -1,0 +1,174 @@
+.current-care-plan-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.section-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.care-plan-banner-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.care-plan-banner-card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: #cbd5e1;
+}
+
+.care-plan-banner-card.is-new-highlight {
+  border: 2px solid var(--primary);
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+  box-shadow: 0 4px 16px rgba(0, 98, 235, 0.12);
+}
+
+.care-plan-banner-card.is-critical-highlight {
+  border: 2px solid #ef4444;
+  background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.15);
+}
+
+.care-plan-banner-card.is-high-highlight {
+  border: 2px solid #f97316;
+  background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.15);
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.banner-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #475569;
+}
+
+.banner-icon-box.priority-critical {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.banner-icon-box.priority-high {
+  background-color: #ffedd5;
+  color: #ea580c;
+}
+
+.banner-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.3;
+}
+
+.banner-title.priority-critical-text {
+  color: #991b1b;
+}
+
+.banner-title.priority-high-text {
+  color: #9a3412;
+}
+
+.banner-desc {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.banner-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.active-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.active-status-badge.priority-critical-badge {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.active-status-badge.priority-high-badge {
+  background-color: #fff7ed;
+  color: #c2410c;
+  border-color: #fed7aa;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+}
+
+.priority-critical-badge .status-dot {
+  background-color: #ef4444;
+}
+
+.priority-high-badge .status-dot {
+  background-color: #f97316;
+}
+
+.arrow-circle-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  transition: all var(--transition-fast);
+}
+
+.arrow-circle-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+@media (max-width: 640px) {
+  .care-plan-banner-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .banner-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

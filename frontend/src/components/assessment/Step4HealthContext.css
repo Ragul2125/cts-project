@@ -1,0 +1,160 @@
+.context-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.context-card {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 115px;
+  min-height: 115px;
+  box-sizing: border-box;
+}
+
+.context-card.conditions-card {
+  border-left: 4px solid var(--success);
+}
+
+.context-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.context-card-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.context-card-title.uppercase {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.context-icon {
+  flex-shrink: 0;
+}
+
+.green-icon { color: var(--success); }
+.red-icon { color: var(--danger); }
+.blue-icon { color: var(--primary); }
+.amber-icon { color: var(--warning); }
+
+.conditions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.condition-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.check-icon {
+  color: var(--primary);
+}
+
+.ed-visits-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.ed-count-number {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #dc2626;
+  line-height: 1;
+}
+
+.ed-timeframe-sub {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.hospitalization-date {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.similar-complaint-badge-wrapper {
+  display: flex;
+}
+
+.complaint-badge {
+  background-color: #ecfdf5;
+  color: #059669;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+}
+
+/* Confirmation Box */
+.context-confirmation-box {
+  background-color: #f1f5f9;
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.confirm-prompt-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.confirm-buttons-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.edit-context-btn {
+  background-color: #ffffff;
+  height: 40px;
+  padding: 0 16px;
+  font-size: 0.8125rem;
+}
+
+.continue-confirm-btn {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 540px) {
+  .context-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .context-card {
+    height: auto;
+    min-height: 90px;
+  }
+  .confirm-buttons-row {
+    flex-direction: column;
+  }
+}

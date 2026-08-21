@@ -1,0 +1,136 @@
+.recent-activity-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.view-all-link {
+  font-size: 0.8125rem;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background-color var(--transition-fast);
+}
+
+.view-all-link:hover {
+  background-color: #eff6ff;
+}
+
+.activity-timeline-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  padding: 24px 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.timeline-items-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-row-item {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.timeline-node-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 4px;
+  z-index: 2;
+  box-shadow: 0 0 0 3px #ffffff;
+}
+
+.dot-red {
+  background-color: #dc2626;
+}
+
+.dot-blue {
+  background-color: #0062eb;
+}
+
+.dot-green {
+  background-color: #10b981;
+}
+
+.dot-amber {
+  background-color: #f59e0b;
+}
+
+.dot-purple {
+  background-color: #8b5cf6;
+}
+
+.timeline-vertical-line {
+  width: 2px;
+  flex: 1;
+  background-color: #e2e8f0;
+  margin: 4px 0;
+  min-height: 48px;
+}
+
+.timeline-details {
+  flex: 1;
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-row-item:last-child .timeline-details {
+  padding-bottom: 0;
+}
+
+.timeline-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.activity-type-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.activity-date-badge {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.activity-facility-name {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.activity-note-text {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 6px;
+  background: #f8fafc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  line-height: 1.4;
+  border: 1px solid var(--border-subtle);
+}
