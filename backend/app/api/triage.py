@@ -28,9 +28,6 @@ class FormTriageRequest(BaseModel):
     pain_level: int = Field(default=5)
     worse_with_activity: Optional[int] = Field(default=0)
     tried_home_remedies: Optional[int] = Field(default=0)
-    temperature_home: Optional[float] = Field(default=36.8)
-    heart_rate_home: Optional[int] = Field(default=75)
-    spo2_home: Optional[int] = Field(default=98)
 
 class TriageResponse(BaseModel):
     status: str  # "complete" or "incomplete"
@@ -139,9 +136,9 @@ async def triage_form(req: FormTriageRequest, db: Session = Depends(get_db)):
             pain_level=req.pain_level,
             worse_with_activity=req.worse_with_activity or 0,
             tried_home_remedies=req.tried_home_remedies or 0,
-            temperature_home=req.temperature_home or 36.8,
-            heart_rate_home=req.heart_rate_home or 75,
-            spo2_home=req.spo2_home or 98,
+            temperature_home=36.8,
+            heart_rate_home=75,
+            spo2_home=98,
             db_data=db_data
         )
 
@@ -152,9 +149,9 @@ async def triage_form(req: FormTriageRequest, db: Session = Depends(get_db)):
             associated_symptoms=req.associated_symptoms,
             symptom_duration_days=req.symptom_duration_days,
             pain_level=req.pain_level,
-            spo2_home=req.spo2_home or 98,
-            temperature_home=req.temperature_home or 36.8,
-            heart_rate_home=req.heart_rate_home or 75,
+            spo2_home=98,
+            temperature_home=36.8,
+            heart_rate_home=75,
             db_data=db_data,
             user_query=f"Form submission: {req.primary_symptom}"
         )

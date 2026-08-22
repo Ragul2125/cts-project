@@ -411,9 +411,6 @@ export const apiService = {
     pain_level?: number;
     worse_with_activity?: number;
     tried_home_remedies?: number;
-    temperature_home?: number;
-    heart_rate_home?: number;
-    spo2_home?: number;
   }): Promise<{
     status: string;
     missing_fields: string[];

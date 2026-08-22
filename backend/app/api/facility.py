@@ -90,7 +90,7 @@ async def recommend_facility(req: FacilityRecommendationRequest):
         
     try:
         api_key = os.getenv("GROQ_API_KEY", "dummy_key")
-        llm = ChatGroq(model="openai/gpt-oss-120b", api_key=api_key, temperature=0)
+        llm = ChatGroq(model="llama3-8b-8192", api_key=api_key, temperature=0)
         
         class FacilityRanking(BaseModel):
             ranked_facilities: List[FacilityItem] = Field(
@@ -128,7 +128,22 @@ async def recommend_facility(req: FacilityRecommendationRequest):
         return FacilityRecommendationResponse(top_facility=top, alternatives=alternatives)
         
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"LLM selection failed: {str(e)}")
+        print(f"LLM selection failed: {e}. Falling back to rule-based ranking.")
+        # Fallback to rule-based ranking
+        ranked_facilities = []
+        for i, c in enumerate(candidates[:3]):
+            ranked_facilities.append(FacilityItem(
+                facility_name=c["facility_name"],
+                specialty=c["specialty"],
+                distance_miles=c["distance_miles"],
+                quality_score=c["quality_score"],
+                why_best_match=f"Excellent match based on proximity ({c['distance_miles']} mi) and quality score ({c['quality_score']}/100).",
+                rank=i + 1
+            ))
+        
+        top = ranked_facilities[0]
+        alternatives = ranked_facilities[1:] if len(ranked_facilities) > 1 else []
+        return FacilityRecommendationResponse(top_facility=top, alternatives=alternatives)
 
 
 @router.post("/book-appointment", response_model=AppointmentBookingResponse)

@@ -17,15 +17,23 @@ export const UpcomingBookingsCard: React.FC = () => {
           <Calendar size={18} />
           <h2>Upcoming Bookings</h2>
         </div>
-        <button className="btn-link" onClick={() => navigate('/care-plan')}>
+        <button className="btn-link" onClick={() => navigate('/care-plan', { state: { activeTab: 'bookings' } })}>
           <span>View All</span>
           <ArrowRight size={16} />
         </button>
       </div>
 
       <div className="bookings-list">
-        {bookings.slice(0, 3).map(booking => (
-          <div key={booking.id} className="booking-item">
+        {[...bookings]
+          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+          .slice(0, 2)
+          .map(booking => (
+          <div 
+            key={booking.id} 
+            className="booking-item"
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/care-plan', { state: { activeTab: 'bookings' } })}
+          >
             <div className="booking-info">
               <h4>{booking.providerName}</h4>
               <p>{booking.providerSpecialty}</p>

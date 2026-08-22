@@ -171,10 +171,7 @@ export const AssessmentProvider: React.FC<{ children: ReactNode }> = ({ children
           symptom_duration_days: assessmentData.duration?.includes('2-3') ? 3 : assessmentData.duration?.includes('week') ? 7 : 1,
           pain_level: assessmentData.severity,
           worse_with_activity: assessmentData.worsening === 'Yes' ? 1 : 0,
-          tried_home_remedies: assessmentData.triedHomeRemedies ? 1 : 0,
-          temperature_home: assessmentData.temperatureHome || 98.6,
-          heart_rate_home: assessmentData.heartRateHome || 75,
-          spo2_home: assessmentData.spo2Home || 98
+          tried_home_remedies: assessmentData.triedHomeRemedies ? 1 : 0
         });
 
         setProcessingProgress(70);

@@ -20,7 +20,7 @@ import {
   Trash2
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { usePatient } from '../../context/PatientContext';
 import { CarePlan, TimelineStep } from '../../types';
 import { apiService } from '../../services/api';
@@ -36,10 +36,18 @@ export const CarePlanPage: React.FC = () => {
     toggleDailyGoal,
     refreshBackendData,
     deleteCarePlan,
-    bookings
+    bookings,
+    addBooking,
+    cancelBooking
   } = usePatient();
 
-  const [activeTab, setActiveTab] = useState<'active' | 'history' | 'bookings'>('active');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [activeTab, setActiveTab] = useState<'active' | 'history' | 'bookings'>(
+    (location.state as any)?.activeTab || 'active'
+  );
+  const [showAllBookings, setShowAllBookings] = useState(false);
   const [selectedHistoryPlan, setSelectedHistoryPlan] = useState<CarePlan | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [actionModalStep, setActionModalStep] = useState<TimelineStep | null>(null);
@@ -57,8 +65,6 @@ export const CarePlanPage: React.FC = () => {
   const [bookingNotes, setBookingNotes] = useState('');
   const [isBooking, setIsBooking] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState<string | null>(null);
-
-  const navigate = useNavigate();
 
   const currentPlan = activeCarePlan;
 
@@ -98,6 +104,18 @@ export const CarePlanPage: React.FC = () => {
         notes: bookingNotes
       });
       setBookingSuccess(res.message);
+      
+      addBooking({
+        id: res.encounter_id || `bkg-${Date.now()}`,
+        providerId: bookingFacility.id || 'prov-1',
+        providerName: bookingFacility.facility_name,
+        providerSpecialty: bookingFacility.specialty || facilityTier,
+        date: bookingDate,
+        time: bookingTime,
+        reason: currentPlan?.title || 'General Consultation',
+        status: 'Scheduled'
+      });
+      
       await refreshBackendData();
     } catch (err) {
       console.error('Booking failed:', err);
@@ -316,8 +334,8 @@ export const CarePlanPage: React.FC = () => {
             </div>
           )}
 
-          {/* Care Pathways (Non-ED only) */}
-          {currentPlan.category !== 'ED' && currentPlan.category !== 'Emergency' && (
+          {/* Care Pathways (Always show) */}
+          {(
             <div className="care-pathways-section">
               <h3 className="section-title">Available Care Pathways</h3>
               <div className="pathway-buttons-grid">
@@ -527,22 +545,64 @@ export const CarePlanPage: React.FC = () => {
             <div className="empty-state">
               <div className="empty-icon"><Calendar size={48} /></div>
               <h3>No upcoming bookings</h3>
-              <p>You don't have any telehealth appointments scheduled at the moment.</p>
+              <p>You don't have any appointments scheduled at the moment.</p>
             </div>
           ) : (
-            <div className="timeline">
+            <div className="bookings-grid">
               {bookings.map(booking => (
-                <div key={booking.id} className="timeline-item">
-                  <div className="timeline-marker completed">
-                    <Calendar size={16} />
-                  </div>
-                  <div className="timeline-content">
-                    <div className="timeline-header">
-                      <h3>Appointment with {booking.providerName}</h3>
-                      <span className="timeline-date">{booking.date} at {booking.time}</span>
+                <div key={booking.id} className="booking-card animate-fade-in">
+                  <div className="booking-card-header">
+                    <div className="booking-icon-wrapper">
+                      <Calendar size={24} className="booking-icon" />
                     </div>
-                    <p>{booking.providerSpecialty}</p>
-                    <span className="timeline-status badge-active">{booking.status}</span>
+                    <div className="booking-status-badge">
+                      <CheckCircle size={14} />
+                      <span>{booking.status}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="booking-card-body">
+                    <h3 className="booking-provider-name">{booking.providerName}</h3>
+                    <p className="booking-provider-specialty">{booking.providerSpecialty}</p>
+                    
+                    {booking.reason && (
+                      <div style={{ marginBottom: '16px', fontSize: '0.875rem', color: '#475569', backgroundColor: '#f1f5f9', padding: '8px 12px', borderRadius: '6px', borderLeft: '3px solid #0062eb' }}>
+                        <strong>Reason:</strong> {booking.reason}
+                      </div>
+                    )}
+                    
+                    <div className="booking-time-row">
+                      <div className="booking-time-item">
+                        <Calendar size={16} />
+                        <span>{booking.date}</span>
+                      </div>
+                      <div className="booking-time-divider">•</div>
+                      <div className="booking-time-item">
+                        <Clock size={16} />
+                        <span>{booking.time}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="booking-card-footer">
+                    <button 
+                      className="btn btn-secondary booking-action-btn"
+                      onClick={() => {
+                        if (window.confirm('Are you sure you want to cancel this booking?')) {
+                          cancelBooking(booking.id);
+                        }
+                      }}
+                    >
+                      Cancel Booking
+                    </button>
+                    <button 
+                      className="btn btn-primary booking-action-btn"
+                      onClick={() => {
+                        window.open(`https://maps.google.com/?q=${encodeURIComponent(booking.providerName)}`, '_blank');
+                      }}
+                    >
+                      Get Directions
+                    </button>
                   </div>
                 </div>
               ))}

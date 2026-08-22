@@ -161,5 +161,6 @@ export interface Booking {
   providerSpecialty: string;
   date: string;
   time: string;
+  reason?: string;
   status: 'Scheduled' | 'Completed' | 'Cancelled';
 }

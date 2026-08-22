@@ -111,42 +111,7 @@ export const Step2Details: React.FC = () => {
         </div>
       </div>
 
-      <div className="detail-section">
-        <h2 className="section-question-title">Home Vitals (Optional)</h2>
-        <div className="vitals-inputs-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginTop: '12px' }}>
-          <div className="vital-input-group">
-            <label style={{ fontSize: '0.8rem', color: '#64748b' }}>Temp (°F)</label>
-            <input
-              type="number"
-              step="0.1"
-              value={assessmentData.temperatureHome || ''}
-              onChange={(e) => updateAssessmentData({ temperatureHome: parseFloat(e.target.value) })}
-              style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #cbd5e1' }}
-              placeholder="98.6"
-            />
-          </div>
-          <div className="vital-input-group">
-            <label style={{ fontSize: '0.8rem', color: '#64748b' }}>Heart Rate</label>
-            <input
-              type="number"
-              value={assessmentData.heartRateHome || ''}
-              onChange={(e) => updateAssessmentData({ heartRateHome: parseInt(e.target.value, 10) })}
-              style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #cbd5e1' }}
-              placeholder="75"
-            />
-          </div>
-          <div className="vital-input-group">
-            <label style={{ fontSize: '0.8rem', color: '#64748b' }}>SpO2 (%)</label>
-            <input
-              type="number"
-              value={assessmentData.spo2Home || ''}
-              onChange={(e) => updateAssessmentData({ spo2Home: parseInt(e.target.value, 10) })}
-              style={{ width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid #cbd5e1' }}
-              placeholder="98"
-            />
-          </div>
-        </div>
-      </div>
+
 
       <footer className="assessment-actions-bar">
         <button 
