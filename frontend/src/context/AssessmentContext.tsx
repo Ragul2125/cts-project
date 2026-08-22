@@ -51,6 +51,10 @@ export const AssessmentProvider: React.FC<{ children: ReactNode }> = ({ children
   const [isAssessmentOpen, setIsAssessmentOpen] = useState<boolean>(false);
 
   const openAssessment = () => {
+    setAssessmentData({ ...defaultAssessment, symptoms: [], primarySymptom: '' });
+    setCurrentStep(1);
+    localStorage.removeItem('carepath_assessment_draft');
+    localStorage.removeItem('carepath_assessment_step');
     setIsAssessmentOpen(true);
   };
 
